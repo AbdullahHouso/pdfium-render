@@ -93,6 +93,20 @@ pub struct Pdfium {
 }
 
 impl Pdfium {
+    /// Returns the raw [PdfiumLibraryBindings] used by this [Pdfium] instance.
+    ///
+    /// This is an escape hatch for calling Pdfium functions that `pdfium-render` does not
+    /// (yet) wrap, such as the interactive form-filling `FORM_*` API. Combine it with
+    /// [PdfForm::handle()] and [PdfPage::page_handle()]. Calls are `unsafe`; the caller must
+    /// uphold Pdfium's own rules (valid handles, single-threaded use).
+    #[inline]
+    pub fn bindings(&self) -> &dyn PdfiumLibraryBindings {
+        BINDINGS
+            .get()
+            .expect("Pdfium bindings are initialized when a Pdfium instance exists")
+            .as_ref()
+    }
+
     #[cfg(not(target_arch = "wasm32"))]
     #[cfg(any(doc, feature = "static"))]
     /// Binds to a Pdfium library that was statically linked into the currently running

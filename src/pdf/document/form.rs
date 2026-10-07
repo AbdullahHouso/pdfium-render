@@ -176,9 +176,10 @@ impl<'a> PdfForm<'a> {
         }
     }
 
-    /// Returns the internal `FPDF_FORMHANDLE` handle for this [PdfForm].
+    /// Returns the raw `FPDF_FORMHANDLE` handle for this [PdfForm], for use with
+    /// [Pdfium::bindings()](crate::prelude::Pdfium::bindings).
     #[inline]
-    pub(crate) fn handle(&self) -> FPDF_FORMHANDLE {
+    pub fn handle(&self) -> FPDF_FORMHANDLE {
         self.form_handle
     }
 

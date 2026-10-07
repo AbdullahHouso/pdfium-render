@@ -224,9 +224,10 @@ impl<'a> PdfPage<'a> {
         result
     }
 
-    /// Returns the internal `FPDF_PAGE` handle for this [PdfPage].
+    /// Returns the raw `FPDF_PAGE` handle for this [PdfPage], for use with
+    /// [Pdfium::bindings()](crate::prelude::Pdfium::bindings).
     #[inline]
-    pub(crate) fn page_handle(&self) -> FPDF_PAGE {
+    pub fn page_handle(&self) -> FPDF_PAGE {
         self.page_handle
     }
 
