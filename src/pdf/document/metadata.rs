@@ -122,9 +122,8 @@ impl<'a> PdfMetadata<'a> {
             PdfDocumentMetadataTagType::Creator => self.get_raw_metadata_tag("Creator"),
             PdfDocumentMetadataTagType::Producer => self.get_raw_metadata_tag("Producer"),
             PdfDocumentMetadataTagType::CreationDate => self.get_raw_metadata_tag("CreationDate"),
-            PdfDocumentMetadataTagType::ModificationDate => {
-                self.get_raw_metadata_tag("ModificationDate")
-            }
+            // The PDF Info dictionary key is "ModDate" (PDF 1.7 reference, section 10.2.1).
+            PdfDocumentMetadataTagType::ModificationDate => self.get_raw_metadata_tag("ModDate"),
         };
 
         result.map(|value| PdfDocumentMetadataTag::new(tag, value))
